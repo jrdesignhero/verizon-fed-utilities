@@ -56,8 +56,12 @@ var marqueeInserter = (function() {
           //log match
           logger.api.updateLogs(Date()+' - Marquee tags found: '+'Pass');
           var temp = [];
-          marqueeString.currentString.map(function(val) {
-            temp.push('<div class="hero-slide">'+val.replace(/\[marquee\]|\[\/marquee\]/g, '')+'</div>');
+          marqueeString.currentString.map(function(val,ndx) {
+            if (ndx === 0) {
+              temp.push('<div class="hero-slide hero-visible hero-active-slide">'+val.replace(/\[marquee\]|\[\/marquee\]/g, '')+'</div>');
+            } else {
+              temp.push('<div class="hero-slide">'+val.replace(/\[marquee\]|\[\/marquee\]/g, '')+'</div>');
+            }
           });
           marqueeString.currentString = temp;
           //log          

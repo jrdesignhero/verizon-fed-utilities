@@ -74,6 +74,7 @@ var marqueeInserter = (function() {
       getString: function() {
         if (marqueeString.currentString !== null) {
           logger.api.printLogs();
+          console.log(marqueeString.currentString.join(''));
           return marqueeString.currentString.join('');
         } else {
           //log

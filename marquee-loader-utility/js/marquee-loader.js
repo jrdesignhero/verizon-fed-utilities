@@ -109,7 +109,7 @@ var MarqueeLoader = {
     formContainerId: 'marquee_form_container',
     marqueeInputClassName: 'marquee_grabber_input',
     marqueeClassName: 'hero-wrapper',
-    endpoint: 'http://www.jrdesignhero.com/apps/vzw-playground/includes/get-content-keys.php',
+    endpoint: 'https://www.verizonwireless.com/vzw/desktop/test/cqContentDisplayTest.jsp',
     hpMarqueeScript: 'http://somescript.js'
   },
   cache: {
@@ -194,27 +194,24 @@ var MarqueeLoader = {
           MarqueeLoader.cache.ui.keyCounter.resetCounter();
           for (var i = 0; i < ckIdCollection.length; i++) {
             $.ajax(MarqueeLoader.config.endpoint, {
-              method: 'POST',
+              method: 'GET',
               data: {
-                ckid: ckIdCollection[i]
+                contentKey: String(ckIdCollection[i]).toUpperCase()+'-DESKTOP';
               },
+              dataType:'html',
               async: false,
-              jsonp: true,
               success: function(data) {
-                if (data.result == "success") {
+                var temp = data.replace(/<p>htmlBody: /, '');
+
+                if (temp.length) {
                   MarqueeLoader.cache.ui.keyCounter.incrementCounter();
-                }
-                if (data.result != 0) {
-                  if (data.result != 'failed') {
-                    var out = '<div class="hero-slide">';
-                    out += String(data.content_key).replace(/'/g, "&39;");
-                    out += '</div>';
-                  } else {
-                    var out = '<div class="hero-slide-container background_FF lifestyle half" style="background:#FDE4E1;" data-temp=""><div class="hero-slide-wrapper"><h2 style="color:#B10009;font-size:26px;padding:20px 20px 0px 20px;margin-bottom:5px;text-align:center;">Content Key Not Found</h2><p style="color:#B10009;font-size:16px;padding:0px 20px 20px 20px;margin-top:0px;text-align:center;">ck_value_goes_here</p></div></div>';
-                  }
+                  var out = '<div class="hero-slide">';
+                  out += String(temp).replace(/'/g, "&39;");
+                  out += '</div>';
                 } else {
-                  var out = '<div class="hero-slide">there was a service error contact FED admin</div>';
+                    var out = '<div class="hero-slide-container background_FF lifestyle half" style="background:#FDE4E1;" data-temp=""><div class="hero-slide-wrapper"><h2 style="color:#B10009;font-size:26px;padding:20px 20px 0px 20px;margin-bottom:5px;text-align:center;">Content Key Not Found</h2><p style="color:#B10009;font-size:16px;padding:0px 20px 20px 20px;margin-top:0px;text-align:center;">ck_value_goes_here</p></div></div>';
                 }
+
                 MarqueeLoader.cache.ckContentCollection.collection.push(out);
               }
             });

@@ -196,7 +196,7 @@ var MarqueeLoader = {
             $.ajax(MarqueeLoader.config.endpoint, {
               method: 'GET',
               data: {
-                contentKey: String(ckIdCollection[i]).toUpperCase()+'-DESKTOP';
+                contentKey: String(ckIdCollection[i]).toUpperCase()+'-DESKTOP'
               },
               dataType:'html',
               async: false,

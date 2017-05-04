@@ -235,6 +235,7 @@ var MarqueeLoader = {
           return this.collection;
         }
         MarqueeLoader.cache.ui.updateButton.showMe();
+        logger.printLogs();
         return false;
       },
       clearCollection: function() {

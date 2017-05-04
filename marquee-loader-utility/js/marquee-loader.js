@@ -193,7 +193,11 @@ var MarqueeLoader = {
         if (ckIdCollection.length > 0) {
           this.clearCollection();
           MarqueeLoader.cache.ui.keyCounter.resetCounter();
+          
+          logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - Marquee loader utility initalized...');
+          
           for (var i = 0; i < ckIdCollection.length; i++) {
+            logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - Content Key requested: ' + ckIdCollection[i]');
             $.ajax(MarqueeLoader.config.endpoint, {
               method: 'GET',
               data: {
@@ -202,17 +206,28 @@ var MarqueeLoader = {
               dataType:'html',
               async: false,
               success: function(data) {
+                logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - Content Key Found:'+' [Pass]');
                 var temp = data.replace(/<p>htmlBody: /, '');
 
                 if (temp.length) {
                   MarqueeLoader.cache.ui.keyCounter.incrementCounter();
-                  var out = '<div class="hero-slide">';
+                  if (i === 0) {
+                    var out = '<div class="hero-slide hero-visible hero-active-slide">';    
+                  } else {
+                    var out = '<div class="hero-slide">';
+                  }
+              
                   out += String(temp).replace(/'/g, "&39;");
                   out += '</div>';
                 } else {
-                    var out = '<div class="hero-slide-container background_FF lifestyle half" style="background:#FDE4E1;" data-temp=""><div class="hero-slide-wrapper"><h2 style="color:#B10009;font-size:26px;padding:20px 20px 0px 20px;margin-bottom:5px;text-align:center;">Content Key Not Found</h2><p style="color:#B10009;font-size:16px;padding:0px 20px 20px 20px;margin-top:0px;text-align:center;">ck_value_goes_here</p></div></div>';
+                    if (i === 0) {
+                         var out = '<div class="hero-slide-container background_FF lifestyle half hero-visible hero-active-slide" style="background:#FDE4E1;" data-temp=""><div class="hero-slide-wrapper"><h2 style="color:#B10009;font-size:26px;padding:20px 20px 0px 20px;margin-bottom:5px;text-align:center;">Content Key Not Found</h2><p style="color:#B10009;font-size:16px;padding:0px 20px 20px 20px;margin-top:0px;text-align:center;">ck_value_goes_here</p></div></div>';
+                    } else {
+                      var out = '<div class="hero-slide-container background_FF lifestyle half" style="background:#FDE4E1;" data-temp=""><div class="hero-slide-wrapper"><h2 style="color:#B10009;font-size:26px;padding:20px 20px 0px 20px;margin-bottom:5px;text-align:center;">Content Key Not Found</h2><p style="color:#B10009;font-size:16px;padding:0px 20px 20px 20px;margin-top:0px;text-align:center;">ck_value_goes_here</p></div></div>';
+                    }
+                    
                 }
-
+                logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - '+ckIdCollection[i]+' added to home page marquee');
                 MarqueeLoader.cache.ckContentCollection.collection.push(out);
               }
             });

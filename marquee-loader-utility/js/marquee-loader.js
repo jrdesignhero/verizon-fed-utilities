@@ -49,12 +49,12 @@ var marqueeInserter = (function() {
         
         //log request
         logger.api.updateLogs('# Marquee Inserter Utility initialized...');
-        logger.api.updateLogs(Date()+' ['+ Date().getTime() +'] - User input value: <br /><pre>'+ inputString.value.trim()+'</pre><br />');
+        logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - User input value: <br /><pre>'+ inputString.value.trim()+'</pre><br />');
         
         marqueeString.currentString = inputString.value.trim().match(/\[marquee\][\s\S]*?\[\/marquee\]?/gi);
         if (marqueeString.currentString) {
           //log match
-          logger.api.updateLogs(Date()+' ['+ Date().getTime() +'] - Marquee tags found: '+'Pass');
+          logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - Marquee tags found: '+'Pass');
           var temp = [];
           for (var i = 0; i<marqueeString.currentString.length; i++) {
             if (i==0) {
@@ -68,7 +68,7 @@ var marqueeInserter = (function() {
           logger.api.printLogs(); 
           return marqueeString.currentString;
         }
-        logger.api.updateLogs(Date()+' ['+ Date().getTime() +'] - Marquee tags found: '+'Fail');
+        logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - Marquee tags found: '+'Fail');
         logger.api.printLogs();
       },
       getString: function() {
@@ -78,7 +78,7 @@ var marqueeInserter = (function() {
           return marqueeString.currentString.join('');
         } else {
           //log
-          logger.api.updateLogs(Date()+' ['+ Date().getTime() +'] - Marquee Loader Output [ Error ]: Please enter html content between [marquee][/marquee] tags for each key<br /><br />');
+          logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - Marquee Loader Output [ Error ]: Please enter html content between [marquee][/marquee] tags for each key<br /><br />');
           logger.api.printLogs();
           alert('Please enter html content between [marquee][/marquee] tags for each key');
           return false
@@ -90,7 +90,7 @@ var marqueeInserter = (function() {
         if ( marqueeString.getString() ) {
           marqueeHeroContainer.innerHTML = marqueeString.getString();
           //log request
-          logger.api.updateLogs(Date()+' ['+ Date().getTime() +'] - User generated HTML content keys inject into DOM<br /><br />');
+          logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - User generated HTML content keys inject into DOM<br /><br />');
         }
         logger.api.printLogs();
       }

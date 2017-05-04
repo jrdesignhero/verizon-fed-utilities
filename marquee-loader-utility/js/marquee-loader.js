@@ -51,7 +51,7 @@ var marqueeInserter = (function() {
         logger.api.updateLogs('# Marquee Inserter Utility initialized...');
         logger.api.updateLogs(Date()+' - User input value: <br />'+ inputString.value.trim()+'<br />');
         
-        marqueeString.currentString = inputString.value.trim().match(/\[marquee\][\s\S]*\[\/marquee\]/g);
+        marqueeString.currentString = inputString.value.trim().match(/\[marquee\][\s\S]*\[\/marquee\]?/gi);
         if (marqueeString.currentString) {
           //log match
           logger.api.updateLogs(Date()+' - Marquee tags found: '+'Pass');

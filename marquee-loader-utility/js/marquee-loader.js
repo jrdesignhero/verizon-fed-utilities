@@ -197,7 +197,7 @@ var MarqueeLoader = {
           logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - Marquee loader utility initalized...');
           
           for (var i = 0; i < ckIdCollection.length; i++) {
-            logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - Content Key requested: ' + ckIdCollection[i]');
+            logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - Content Key requested: ' + ckIdCollection[i]);
             $.ajax(MarqueeLoader.config.endpoint, {
               method: 'GET',
               data: {

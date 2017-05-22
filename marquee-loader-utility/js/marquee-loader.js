@@ -58,7 +58,7 @@ var marqueeInserter = (function() {
         
         //log request
         logger.api.updateLogs('# Marquee Inserter Utility initialized...');
-        logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - User input value: <br /><pre>'+ inputString.value.trim()+'</pre><br />');
+        logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - User input marquee html content using [marquee] tags ');
         
         marqueeString.currentString = inputString.value.trim().match(/\[marquee\][\s\S]*?\[\/marquee\]?/gi);
         if (marqueeString.currentString) {

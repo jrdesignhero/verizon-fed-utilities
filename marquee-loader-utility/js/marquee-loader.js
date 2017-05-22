@@ -1,5 +1,14 @@
 //require Library
 /*requires jquery library:<script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js></script>*/
+var helpers = {
+    showLoadMessage: function (type) {
+	    if (type=='success') {
+	       $('#success-load-message').show().delay('3000').hide();
+	    } else {
+	       $('#failed-load-message').show().delay('3000').hide();
+	    }
+    }
+};
 var logger = (function() {
   var settings = {
     logView: document.getElementById('log-view-1'),
@@ -88,9 +97,16 @@ var marqueeInserter = (function() {
         var marqueeHeroContainer = document.getElementsByClassName('hero-wrapper')[0];
         marqueeString.buildString();
         if ( marqueeString.getString() ) {
+          helpers.showLoadMessage('success');
+          mySwiper.removeAllSlides();
           marqueeHeroContainer.innerHTML = marqueeString.getString();
+          mySwiper.updateSlidesSize();
+          mySwiper.updatePagination();
+          
           //log request
           logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - User generated HTML content keys inject into DOM<br /><br />');
+        } else {
+          helpers.showLoadMessage(false);
         }
         logger.api.printLogs();
       }
@@ -190,11 +206,14 @@ var MarqueeLoader = {
     ckContentCollection: {
       collection: [],
       getCkContent: function(ckIdCollection) {
+        var cksFound = 0;
         if (ckIdCollection.length > 0) {
           this.clearCollection();
           MarqueeLoader.cache.ui.keyCounter.resetCounter();
           
           logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - Marquee loader utility initalized...');
+          
+          mySwiper.removeAllSlides();
           
           for (var i = 0; i < ckIdCollection.length; i++) {
             logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - Content Key requested: ' + ckIdCollection[i]);
@@ -206,31 +225,30 @@ var MarqueeLoader = {
               dataType:'html',
               async: false,
               success: function(data) {
-                logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - Content Key Found:'+' [Pass]');
+                logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - Content Key Found:'+' [Pass] | ['+ckIdCollection[i]+']');
                 var temp = data.replace(/<p>htmlBody: /, '');
 
                 if (temp.length) {
                   MarqueeLoader.cache.ui.keyCounter.incrementCounter();
-                  if (i === 0) {
-                    var out = '<div class="hero-slide hero-visible hero-active-slide">';    
-                  } else {
-                    var out = '<div class="hero-slide">';
-                  }
-              
+                  
+                  var out = '<div class="hero-slide">';
                   out += String(temp).replace(/'/g, "&39;");
                   out += '</div>';
+                  cksFound++; 
                 } else {
-                    if (i === 0) {
-                         var out = '<div class="hero-slide-container background_FF lifestyle half hero-visible hero-active-slide" style="background:#FDE4E1;" data-temp=""><div class="hero-slide-wrapper"><h2 style="color:#B10009;font-size:26px;padding:20px 20px 0px 20px;margin-bottom:5px;text-align:center;">Content Key Not Found</h2><p style="color:#B10009;font-size:16px;padding:0px 20px 20px 20px;margin-top:0px;text-align:center;">ck_value_goes_here</p></div></div>';
-                    } else {
-                      var out = '<div class="hero-slide-container background_FF lifestyle half" style="background:#FDE4E1;" data-temp=""><div class="hero-slide-wrapper"><h2 style="color:#B10009;font-size:26px;padding:20px 20px 0px 20px;margin-bottom:5px;text-align:center;">Content Key Not Found</h2><p style="color:#B10009;font-size:16px;padding:0px 20px 20px 20px;margin-top:0px;text-align:center;">ck_value_goes_here</p></div></div>';
-                    }
-                    
+                  out = '<div class="hero-slide-container background_FF lifestyle half hero-visible hero-active-slide" style="background:#FDE4E1;" data-temp=""><div class="hero-slide-wrapper"><h2 style="color:#B10009;font-size:26px;padding:20px 20px 0px 20px;margin-bottom:5px;text-align:center;">Content Key Not Found</h2><p style="color:#B10009;font-size:16px;padding:0px 20px 20px 20px;margin-top:0px;text-align:center;">ck_value_goes_here</p></div></div>';
                 }
+                mySwiper.appendSlide(out);
                 logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - '+ckIdCollection[i]+' added to home page marquee');
                 MarqueeLoader.cache.ckContentCollection.collection.push(out);
               }
             });
+          }
+          logger.printLogs();
+          if (cksFound) {
+             helpers.showLoadMessage('success');
+          } else {
+             helpers.showLoadMessage(false);
           }
           return this.collection;
         }

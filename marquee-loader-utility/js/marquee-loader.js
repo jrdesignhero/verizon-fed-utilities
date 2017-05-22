@@ -244,7 +244,7 @@ var MarqueeLoader = {
               }
             });
           }
-          logger.printLogs();
+          logger.api.printLogs();
           if (cksFound) {
              helpers.showLoadMessage('success');
           } else {
@@ -253,7 +253,7 @@ var MarqueeLoader = {
           return this.collection;
         }
         MarqueeLoader.cache.ui.updateButton.showMe();
-        logger.printLogs();
+        logger.api.printLogs();
         return false;
       },
       clearCollection: function() {

@@ -63,7 +63,7 @@ var marqueeInserter = (function() {
         marqueeString.currentString = inputString.value.trim().match(/\[marquee\][\s\S]*?\[\/marquee\]?/gi);
         if (marqueeString.currentString) {
           //log match
-          logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - Marquee tags found: '+'Pass');
+          logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - Marquee tags found [marquee][/marquee]: '+'Pass');
           var temp = [];
           for (var i = 0; i<marqueeString.currentString.length; i++) {
             if (i==0) {
@@ -77,7 +77,7 @@ var marqueeInserter = (function() {
           logger.api.printLogs(); 
           return marqueeString.currentString;
         }
-        logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - Marquee tags found: '+'Fail');
+        logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - Marquee tags found [marquee][/marquee]: '+'Fail');
         logger.api.printLogs();
       },
       getString: function() {
@@ -100,8 +100,7 @@ var marqueeInserter = (function() {
           helpers.showLoadMessage('success');
           mySwiper.removeAllSlides();
           marqueeHeroContainer.innerHTML = marqueeString.getString();
-          mySwiper.updateSlidesSize();
-          mySwiper.updatePagination();
+          mySwiper.update();
           
           //log request
           logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - User generated HTML content keys inject into DOM<br /><br />');
@@ -243,6 +242,7 @@ var MarqueeLoader = {
                 MarqueeLoader.cache.ckContentCollection.collection.push(out);
               }
             });
+            mySwiper.update();
           }
           logger.api.printLogs();
           if (cksFound) {

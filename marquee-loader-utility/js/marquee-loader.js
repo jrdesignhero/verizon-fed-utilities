@@ -243,9 +243,7 @@ var MarqueeLoader = {
             });
           }
 	  mySwiper.removeAllSlides();
-		console.log(ckclk);
 	  mySwiper.appendSlide(ckclk);	
-	  alert('done3');	
           logger.api.printLogs();
           if (cksFound) {
              helpers.showLoadMessage('success');

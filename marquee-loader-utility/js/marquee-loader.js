@@ -213,8 +213,6 @@ var MarqueeLoader = {
           
           logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - Marquee loader utility initalized...');
           
-          mySwiper.removeAllSlides();
-          
           for (var i = 0; i < ckIdCollection.length; i++) {
             logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - Content Key requested: ' + ckIdCollection[i]);
             $.ajax(MarqueeLoader.config.endpoint, {
@@ -246,7 +244,7 @@ var MarqueeLoader = {
           }
 	  mySwiper.removeAllSlides();
 	  mySwiper.appendSlide(ckclk);	
-	  alert('done1');	
+	  alert('done2');	
           logger.api.printLogs();
           if (cksFound) {
              helpers.showLoadMessage('success');

@@ -244,8 +244,8 @@ var MarqueeLoader = {
                 MarqueeLoader.cache.ckContentCollection.collection.push(out);
               }
             });
-            mySwiper.update();
           }
+          mySwiper.update();
           logger.api.printLogs();
           if (cksFound) {
              helpers.showLoadMessage('success');

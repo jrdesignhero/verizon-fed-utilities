@@ -3,11 +3,11 @@
 var helpers = {
     showLoadMessage: function (type) {
 	    if (type=='success') {
-	       $('#success-load-message').show().delay('3000').hide();
-		    alert('success worked');
+	       $('#success-load-message').show().delay('3000');
+		    alert('success worked 1');
 	    } else {
-	       $('#failed-load-message').show().delay('3000').hide();
-	    	alert('failed worked');
+	       $('#failed-load-message').show().delay('3000');
+	    	alert('failed worked 1');
 	    }
     }
 };

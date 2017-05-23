@@ -236,7 +236,7 @@ var MarqueeLoader = {
                   out += '</div>';
                   cksFound++; 
                 } else {
-                  out = '<div class="hero-slide-container background_FF lifestyle half hero-visible hero-active-slide" style="background:#FDE4E1;" data-temp=""><div class="hero-slide-wrapper"><h2 style="color:#B10009;font-size:26px;padding:20px 20px 0px 20px;margin-bottom:5px;text-align:center;">Content Key Not Found</h2><p style="color:#B10009;font-size:16px;padding:0px 20px 20px 20px;margin-top:0px;text-align:center;">ck_value_goes_here</p></div></div>';
+                  out = '<div class="hero-slide background_FF lifestyle" style="background:#FDE4E1;" data-temp=""><div class="hero-slide-wrapper"><h2 style="color:#B10009;font-size:26px;padding:20px 20px 0px 20px;margin-bottom:5px;text-align:center;">Content Key Not Found</h2><p style="color:#B10009;font-size:16px;padding:0px 20px 20px 20px;margin-top:0px;text-align:center;">ck_value_goes_here</p></div></div>';
                 }
 		ckclk.push(out);
                 logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - '+ckIdCollection[i]+' added to home page marquee');
@@ -244,9 +244,9 @@ var MarqueeLoader = {
               }
             });
           }
+	  mySwiper.removeAllSlides();
 	  mySwiper.appendSlide(ckclk);	
-          mySwiper.update();
-	  alert('done');	
+	  alert('done1');	
           logger.api.printLogs();
           if (cksFound) {
              helpers.showLoadMessage('success');

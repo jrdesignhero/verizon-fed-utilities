@@ -100,8 +100,11 @@ var marqueeInserter = (function() {
           helpers.showLoadMessage('success');
           mySwiper.removeAllSlides();
           marqueeHeroContainer.innerHTML = marqueeString.getString();
-          mySwiper.update();
           
+	  setTimeout(function () {
+   	      mySwiper.update();
+	  }, 1000);
+  
           //log request
           logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - User generated HTML content keys inject into DOM<br /><br />');
         } else {
@@ -243,7 +246,12 @@ var MarqueeLoader = {
             });
           }
 	  mySwiper.removeAllSlides();
-	  mySwiper.appendSlide(ckclk);	
+	  mySwiper.appendSlide(ckclk);
+
+	  setTimeout(function () {
+   	      mySwiper.update();
+	  }, 1000);		
+		
           logger.api.printLogs();
           if (cksFound) {
              helpers.showLoadMessage('success');

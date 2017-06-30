@@ -103,6 +103,7 @@ var marqueeInserter = (function() {
           
 	  setTimeout(function () {
    	      mySwiper.update();
+          mySwiper.init();
 	  }, 1000);
   
           //log request
@@ -209,7 +210,10 @@ var MarqueeLoader = {
       collection: [],
       getCkContent: function(ckIdCollection) {
         var cksFound = 0;
-	var ckclk = [];
+	      var ckclk = [];
+        var regExDesktop = /-desktop$/i;
+        var regExMobile = /-mobile$/i;
+
         if (ckIdCollection.length > 0) {
           this.clearCollection();
           MarqueeLoader.cache.ui.keyCounter.resetCounter();
@@ -217,11 +221,17 @@ var MarqueeLoader = {
           logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - Marquee loader utility initalized...');
           
           for (var i = 0; i < ckIdCollection.length; i++) {
+
+            //check that the string entered for ck has -desktop or -mobile for the service
+            if (!regExDesktop.test(ckIdCollection[i]) && !regExMobile.test(ckIdCollection[i])) {
+              alert('The webservice for looking up keys requires a device identifier (-DESKTOP or -MOBILE) be appended to the end of the CK name. You entered: ' + ckIdCollection[i] + ' as a ck name without a device identifier. As a result the lookup for this key has failed. Please reload this key using the value: ' + ckIdCollection[i] +'-DESKTOP for desktop or '+ckIdCollection[i] +'-MOBILE for mobile.');
+            } 
+
             logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - Content Key requested: ' + ckIdCollection[i]);
             $.ajax(MarqueeLoader.config.endpoint, {
               method: 'GET',
               data: {
-                contentKey: String(ckIdCollection[i]).toUpperCase()+'-DESKTOP'
+                contentKey: String(ckIdCollection[i]).toUpperCase()
               },
               dataType:'html',
               async: false,
@@ -250,6 +260,7 @@ var MarqueeLoader = {
 
 	  setTimeout(function () {
    	      mySwiper.update();
+          mySwiper.init();
 	  }, 1000);		
 		
           logger.api.printLogs();

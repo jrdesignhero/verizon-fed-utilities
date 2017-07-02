@@ -223,12 +223,13 @@ var MarqueeLoader = {
           for (var i = 0; i < ckIdCollection.length; i++) {
 
             //check that the string entered for ck has -desktop or -mobile for the service
-            if (!regExDesktop.test(ckIdCollection[i]) && !regExMobile.test(ckIdCollection[i])) {
-              logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] [Missing Device Identifier] - '+ckIdCollection[i]+' request for CK missing -DESKTOP or -MOBILE');
+            logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - Content Key requested: ' + ckIdCollection[i]);
+	    
+	    if (!regExDesktop.test(ckIdCollection[i]) && !regExMobile.test(ckIdCollection[i])) {
+              logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - [Missing Device Identifier] - request for '+ckIdCollection[i]+' missing -DESKTOP or -MOBILE');
               alert('Our service requires a device identifier (-DESKTOP or -MOBILE) be appended to the end of the CK name when loading content keys. You entered: ' + String(ckIdCollection[i]).toUpperCase() + ' as a ck name without a device identifier. As a result the lookup for this key has failed. Please reload this key using the value: ' + String(ckIdCollection[i]).toUpperCase() +'-DESKTOP for desktop or '+String(ckIdCollection[i]).toUpperCase() +'-MOBILE for mobile.');
             } 
 
-            logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - Content Key requested: ' + ckIdCollection[i]);
             $.ajax(MarqueeLoader.config.endpoint, {
               method: 'GET',
               data: {
@@ -237,7 +238,6 @@ var MarqueeLoader = {
               dataType:'html',
               async: false,
               success: function(data) {
-                logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - Content Key Found:'+' [Pass] | ['+ckIdCollection[i]+']');
                 var temp = data.replace(/<p>htmlBody: /, '');
 
                 if (temp.length) {
@@ -247,7 +247,8 @@ var MarqueeLoader = {
                   out += String(temp).replace(/'/g, "&39;");
                   out += '</div>';
                   cksFound++; 
-                } else {
+                  logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - Content Key Found:'+' [Pass] | ['+ckIdCollection[i]+']');
+		} else {
 		  logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - Content Key Found:'+' [Fail] | ['+ckIdCollection[i]+']');
                   out = '<div class="hero-slide background_FF lifestyle" style="background:#FDE4E1;" data-temp=""><div class="hero-slide-wrapper"><h2 style="color:#B10009;font-size:26px;padding:20px 20px 0px 20px;margin-bottom:5px;text-align:center;">Content Key Not Found</h2><p style="color:#B10009;font-size:16px;padding:0px 20px 20px 20px;margin-top:0px;text-align:center;">'+ckIdCollection[i]+'</p></div></div>';
                 }

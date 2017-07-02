@@ -102,8 +102,15 @@ var marqueeInserter = (function() {
           marqueeHeroContainer.innerHTML = marqueeString.getString();
           
 	  setTimeout(function () {
-   	      mySwiper.update();
+   	  mySwiper.update();
           mySwiper.init();
+	  
+          //add tool tips
+	  TOOLTIPS.init();
+	  $('[class*="tooltip-link"]').on('mouseover keyup mouseout blur', function(event) {
+		TOOLTIPS.eventToolTip(event);
+	  });
+	  
 	  }, 1000);
   
           //log request
@@ -262,8 +269,15 @@ var MarqueeLoader = {
 	  mySwiper.appendSlide(ckclk);
 
 	  setTimeout(function () {
-   	      mySwiper.update();
+   	  mySwiper.update();
           mySwiper.init();
+	  
+	  //add tool tips
+	  TOOLTIPS.init();
+	  $('[class*="tooltip-link"]').on('mouseover keyup mouseout blur', function(event) {
+		TOOLTIPS.eventToolTip(event);
+	  });
+	  
 	  }, 1000);		
 		
           logger.api.printLogs();

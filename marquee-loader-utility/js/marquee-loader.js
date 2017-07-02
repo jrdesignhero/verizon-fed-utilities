@@ -129,7 +129,7 @@ var MarqueeLoader = {
     formContainerId: 'marquee_form_container',
     marqueeInputClassName: 'marquee_grabber_input',
     marqueeClassName: 'hero-wrapper',
-    endpoint: 'testman.verizonwireless.com/vzw/desktop/test/cqContentDisplayTest.jsp',
+    endpoint: '//testman.verizonwireless.com/vzw/desktop/test/cqContentDisplayTest.jsp',
     hpMarqueeScript: 'http://somescript.js'
   },
   cache: {

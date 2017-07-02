@@ -13,7 +13,7 @@
   <h2 id="marquee-loader-title">FEDLab | <span style="font-weight:100">Marquee Loader</span></h2>
   <div id="marquee-loader-power-btn-container"><i id="marquee-loader-power-btn" class="fa fa-power-off fa-2x" aria-hidden="true"></i></div>
 </div>
-<div id="marquee_form_container">
+<div id="marquee_form_container" style="display: none">
   <div id="success-load-message">Marquees were loaded successfully. Please Scroll down to see the results.</div>
   <div id="failed-load-message">No Marquees were loaded. Please try again</div>
   <div class="marquee-loader-tab" id="marquee-loader-tab-1">
@@ -75,7 +75,7 @@
     <h3 class="help-title">Marquee Loader - Database Lookup</h3>
     <p class="help-detail">To use the database lookup up to 9 content key ids and click load content keys. Each key content found in the database will load inside of the hero image container. Use the navigation menu on the right to close the view but keep the Marquee Loader running. Please remember to use a device identifier (-DESKTOP or -MOBILE) when requesting CKs for the loader tool. Example: CK_HP_MARQ_UPGRADE_GOOGLE_PIXEL_XL_TRADE_IN_05152017-DESKTOP.</p>
     <h3 class="help-title">Marquee Loader - HTML Upload</h3>
-    <p class="help-detail">Here you can upload the HTML content directly to the hero container. Paste html in the container and seperate each key using [end_marquee] tag. Click Insert Keys and your content will be uploaded directly to the page</p>
+    <p class="help-detail">Here you can upload the HTML content directly to the hero container. Paste html in the container inside of [marquee][/marquee] tags. For example, [marquee]YOUR HTML CONTENT HERE[/marquee]. Click Insert Keys and your content will be uploaded directly to the page. Please Remember to only use HTML from the marquee maker tool at https://testman.verizonwireless.com/featured/digital-styleguide/autobot/marquee-maker-d/ or https://testman.verizonwireless.com/featured/digital-styleguide/autobot/marquee-maker-m/ or the tool tip will not work properly.</p>
     <h3 class="help-title">Marquee Loader - Logs</h3>
     <p class="help-detail">You can see a list of all the marquees requested and the result of each request for the session.</p>
   

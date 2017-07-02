@@ -231,16 +231,18 @@ var MarqueeLoader = {
 
             //check that the string entered for ck has -desktop or -mobile for the service
             logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - Content Key requested: ' + ckIdCollection[i]);
-	    
+	    /*
+	    // Removed as this is now Desktop Only Tool
 	    if (!regExDesktop.test(ckIdCollection[i]) && !regExMobile.test(ckIdCollection[i])) {
               logger.api.updateLogs(Date()+' ['+ new Date().getTime() +'] - [Missing Device Identifier] - request for '+ckIdCollection[i]+' missing -DESKTOP or -MOBILE');
               alert('Our service requires a device identifier (-DESKTOP or -MOBILE) be appended to the end of the CK name when loading content keys. You entered: ' + String(ckIdCollection[i]).toUpperCase() + ' as a ck name without a device identifier. As a result the lookup for this key has failed. Please reload this key using the value: ' + String(ckIdCollection[i]).toUpperCase() +'-DESKTOP for desktop or '+String(ckIdCollection[i]).toUpperCase() +'-MOBILE for mobile.');
             } 
+	    */
 
             $.ajax(MarqueeLoader.config.endpoint, {
               method: 'GET',
               data: {
-                contentKey: String(ckIdCollection[i]).toUpperCase()
+                contentKey: String(ckIdCollection[i]).toUpperCase()+'-DESKTOP'
               },
               dataType:'html',
               async: false,
